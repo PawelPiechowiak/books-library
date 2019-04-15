@@ -8,8 +8,12 @@ import java.io.FileNotFoundException;
 public class LibraryApplication {
 
     public static void main(String[] args) throws FileNotFoundException {
-        Deserializer book = new Deserializer();
-        book.readFromJson();
+        Deserializer object = new Deserializer();
+        object.readFromJson();
+
+        IsbnBook isbn = new IsbnBook();
+        Book book = isbn.findBook(object, "9788131758649");
+        System.out.println(book.getTitle());
         //SpringApplication.run(LibraryApplication.class, args);
     }
 

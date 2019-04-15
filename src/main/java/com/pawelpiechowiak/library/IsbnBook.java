@@ -1,12 +1,18 @@
 package com.pawelpiechowiak.library;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
-@RestController
 public class IsbnBook {
-    @GetMapping("/test")
-    public String test() {
-        return "Test";
+
+    public Book findBook(Deserializer booksList, String isbn) {
+        List<Book> books = booksList.getBooks();
+
+        for (Book book : books) {
+//            System.out.println(book.getId());
+            if (book.getId().equals(isbn)) {
+                return book;
+            }
+        }
+        return null;
     }
 }
