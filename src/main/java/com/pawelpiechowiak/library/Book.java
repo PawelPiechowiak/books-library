@@ -24,6 +24,27 @@ public class Book {
     private List<String> authors;
     private List<String> categories;
 
+    public Book() {
+    }
+
+    ;
+
+    public Book(String isbn, String title, String subtitle, String publisher, Long publishedDate, String description, Integer pageCount, String thumbnail, String language, String previewLink, Double averageRating, List<String> authors, List<String> categories) {
+        this.isbn = isbn;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.publisher = publisher;
+        this.publishedDate = publishedDate;
+        this.description = description;
+        this.pageCount = pageCount;
+        this.thumbnail = thumbnail;
+        this.language = language;
+        this.previewLink = previewLink;
+        this.averageRating = averageRating;
+        this.authors = authors;
+        this.categories = categories;
+    }
+
     public void setTitle(String title) {
         if (title != null)
             this.title = title;
@@ -39,16 +60,20 @@ public class Book {
             this.publisher = publisher;
     }
 
-    public void setPublishedDate(String publishedDate) throws ParseException {
+    public void setPublishedDate(String publishedDate) {
         if (publishedDate != null) {
-            SimpleDateFormat simpleDateFormat;
-            if (publishedDate.length() == 4) {
-                simpleDateFormat = new SimpleDateFormat("yyyy");
-            } else {
-                simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                SimpleDateFormat simpleDateFormat;
+                if (publishedDate.length() == 4) {
+                    simpleDateFormat = new SimpleDateFormat("yyyy");
+                } else {
+                    simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                }
+                Date date = simpleDateFormat.parse(publishedDate);
+                this.publishedDate = date.getTime();
+            } catch (ParseException e) {
+                System.out.println("ParseException occurred. PublishedDate = null");
             }
-            Date date = simpleDateFormat.parse(publishedDate);
-            this.publishedDate = date.getTime();
         }
     }
 
