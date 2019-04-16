@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -20,19 +21,18 @@ public class IsbnBook {
 
     @RequestMapping(value = "/books/{isbn}", method = RequestMethod.GET)
     @ResponseBody
-    public String getBook(@PathVariable("isbn") String isbn) throws FileNotFoundException {
+    public String getBook(@PathVariable("isbn") String isbn) throws FileNotFoundException, ParseException {
         book.readFromJson();
-        if (findBook(book, isbn) != null) {
+        if (findBookByISBN(isbn) != null) {
             Gson gson = new Gson();
-            String json = gson.toJson(findBook(book, isbn));
-            return json;
+            return gson.toJson(findBookByISBN(isbn));
         } else {
             throw new ResourceNotFoundException("The book does not exist.");
         }
     }
 
-    private Book findBook(Deserializer booksList, String isbn) {
-        List<Book> books = booksList.getBooks();
+    private Book findBookByISBN(String isbn) {
+        List<Book> books = book.getBooks();
         for (Book book : books) {
             if (book.getIsbn().equals(isbn)) {
                 return book;

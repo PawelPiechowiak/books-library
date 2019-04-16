@@ -2,7 +2,10 @@ package com.pawelpiechowiak.library;
 
 import com.google.gson.JsonArray;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Book {
@@ -10,7 +13,7 @@ public class Book {
     private String title;
     private String subtitle;
     private String publisher;
-    private String publishedDate;   //tu musi być na wyjściu long
+    private Long publishedDate;
     private String description;
     private Integer pageCount;
     private String thumbnail;
@@ -36,9 +39,17 @@ public class Book {
             this.publisher = publisher;
     }
 
-    public void setPublishedDate(String publishedDate) {
-        if (publishedDate != null)
-            this.publishedDate = publishedDate;
+    public void setPublishedDate(String publishedDate) throws ParseException {
+        if (publishedDate != null) {
+            SimpleDateFormat simpleDateFormat;
+            if (publishedDate.length() == 4) {
+                simpleDateFormat = new SimpleDateFormat("yyyy");
+            } else {
+                simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            }
+            Date date = simpleDateFormat.parse(publishedDate);
+            this.publishedDate = date.getTime();
+        }
     }
 
     public void setDescription(String description) {
@@ -120,7 +131,7 @@ public class Book {
         return publisher;
     }
 
-    public String getPublishedDate() {
+    public Long getPublishedDate() {
         return publishedDate;
     }
 

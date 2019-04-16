@@ -9,6 +9,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Deserializer {
         return null;
     }
 
-    public void readFromJson() throws FileNotFoundException {
+    public void readFromJson() throws FileNotFoundException, ParseException {
         Gson gson = new Gson();
         File file = ResourceUtils.getFile("classpath:static/books.json");
         JsonObject jsonObject = gson.fromJson(new FileReader(file), JsonObject.class);
