@@ -50,7 +50,7 @@ public class Deserializer {
                 book.setDescription(isVolumeNull(items, n, "description").getAsString());
             if (isVolumeNull(items, n, "pageCount") != null)
                 book.setPageCount(isVolumeNull(items, n, "pageCount").getAsInt());
-            if (isVolumeNull(items, n, "thumbnail") != null)
+            if (isVolumeNull(items, n, "imageLinks") != null)
                 book.setThumbnail(isVolumeNull(items, n, "imageLinks").getAsJsonObject().get("thumbnail").getAsString());
             if (isVolumeNull(items, n, "language") != null)
                 book.setLanguage(isVolumeNull(items, n, "language").getAsString());

@@ -6,19 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Book {
-    private String id;
-    private boolean isIsbn;
-
+    private String isbn;
     private String title;
     private String subtitle;
     private String publisher;
     private String publishedDate;   //tu musi być na wyjściu long
     private String description;
-    private int pageCount;
+    private Integer pageCount;
     private String thumbnail;
     private String language;
     private String previewLink;
-    private double averageRating;
+    private Double averageRating;
 
     private List<String> authors;
     private List<String> categories;
@@ -48,9 +46,10 @@ public class Book {
             this.description = description;
     }
 
-    public void setPageCount(int pageCount) {
-        if (Integer.valueOf(pageCount) != null)
+    public void setPageCount(Integer pageCount) {
+        if (pageCount != null) {
             this.pageCount = pageCount;
+        }
     }
 
     public void setThumbnail(String thumbnail) {
@@ -68,8 +67,8 @@ public class Book {
             this.previewLink = previewLink;
     }
 
-    public void setAverageRating(double averageRating) {
-        if (Double.valueOf(averageRating) != null)
+    public void setAverageRating(Double averageRating) {
+        if (averageRating != null)
             this.averageRating = averageRating;
     }
 
@@ -96,19 +95,17 @@ public class Book {
             for (int i = 0; i < industryIdentifiers.size(); i++) {
                 String checkISBN = industryIdentifiers.get(i).getAsJsonObject().get("type").getAsString();
                 if (checkISBN.equals("ISBN_13")) {
-                    this.id = industryIdentifiers.get(i).getAsJsonObject().get("identifier").getAsString();
-                    this.isIsbn = true;
+                    this.isbn = industryIdentifiers.get(i).getAsJsonObject().get("identifier").getAsString();
                     break;
                 } else {
-                    this.id = id;
-                    this.isIsbn = false;
+                    this.isbn = id;
                 }
             }
         }
     }
 
-    public String getId() {
-        return id;
+    public String getIsbn() {
+        return isbn;
     }
 
     public String getTitle() {
