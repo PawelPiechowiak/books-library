@@ -29,8 +29,16 @@ public class BookProviderTest {
     }
 
     @Test
-    public void findBookByCategory() {
+    public void findBookByCategoryWithCapitalLetter() {
         List<Book> bookList = bookProvider.findBookByCategory("Java");
+
+        assertEquals(bookList.get(0).getIsbn(), "9788324677658");
+        assertEquals(bookList.get(1).getIsbn(), "9780131002876");
+    }
+
+    @Test
+    public void findBookByCategoryWithLowerLetter() {
+        List<Book> bookList = bookProvider.findBookByCategory("java");
 
         assertEquals(bookList.get(0).getIsbn(), "9788324677658");
         assertEquals(bookList.get(1).getIsbn(), "9780131002876");

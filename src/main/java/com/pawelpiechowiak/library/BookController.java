@@ -34,11 +34,7 @@ public class BookController {
     @RequestMapping(value = "/books/category/{category}", method = RequestMethod.GET)
     @ResponseBody
     public String getCategory(@PathVariable("category") String category) {
-        if (book.findBookByCategory(category) != null) {
             Gson gson = new Gson();
             return gson.toJson(book.findBookByCategory(category));
-        } else {
-            throw new ResourceNotFoundException("The book does not exist.");
-        }
     }
 }

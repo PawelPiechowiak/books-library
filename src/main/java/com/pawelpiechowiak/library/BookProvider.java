@@ -24,7 +24,7 @@ public class BookProvider {
         List<Book> bookList = book.getBooks();
         List<Book> booksToShow = new ArrayList<>();
         for (Book bookFromList : bookList) {
-            if (bookFromList.getCategories() != null) {
+            if (bookFromList.getCategories() != null && category != null) {
                 for (String bookCategory : bookFromList.getCategories()) {
                     if (bookCategory.toLowerCase().equals(category.toLowerCase())) {
                         booksToShow.add(bookFromList);
