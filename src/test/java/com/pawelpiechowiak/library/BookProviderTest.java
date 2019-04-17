@@ -15,7 +15,7 @@ public class BookProviderTest {
     @Before
     public void setUp() {
         deserializer = new Deserializer();
-        deserializer.readFromJson();
+        deserializer.readBooksFromJson();
         bookProvider = new BookProvider(deserializer);
     }
 

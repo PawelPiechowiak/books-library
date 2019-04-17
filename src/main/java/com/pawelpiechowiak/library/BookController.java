@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.*;
 public class BookController {
     private Deserializer deserializer = new Deserializer();
     private BookProvider book = new BookProvider(deserializer);
+    private AuthorProvider author = new AuthorProvider(deserializer);
 
     public BookController() {
-        deserializer.readFromJson();
+        deserializer.readBooksFromJson();
     }
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
@@ -34,7 +35,14 @@ public class BookController {
     @RequestMapping(value = "/books/category/{category}", method = RequestMethod.GET)
     @ResponseBody
     public String getCategory(@PathVariable("category") String category) {
-            Gson gson = new Gson();
-            return gson.toJson(book.findBookByCategory(category));
+        Gson gson = new Gson();
+        return gson.toJson(book.findBookByCategory(category));
+    }
+
+    @RequestMapping(value = "/rating", method = RequestMethod.GET)
+    @ResponseBody
+    public String getRating() {
+        Gson gson = new Gson();
+        return gson.toJson(author.segregateAuthors());
     }
 }

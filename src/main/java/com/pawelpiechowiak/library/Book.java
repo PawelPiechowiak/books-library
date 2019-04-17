@@ -196,7 +196,7 @@ public class Book {
         return previewLink;
     }
 
-    public double getAverageRating() {
+    public Double getAverageRating() {
         return averageRating;
     }
 

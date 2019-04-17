@@ -18,7 +18,7 @@ public class DeserializerTest {
 
     @Test
     public void readFromJson() {
-        deserializer.readFromJson();
+        deserializer.readBooksFromJson();
         Book convertedJson = deserializer.getBooks().get(37);
 
         assertEquals(convertedJson.getIsbn(), "9780080568782");
