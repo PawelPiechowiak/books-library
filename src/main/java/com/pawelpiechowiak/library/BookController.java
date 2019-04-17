@@ -20,7 +20,6 @@ public class BookController {
     @ResponseBody
     public String getBook(@PathVariable("isbn") String isbn) {
         deserializer.readFromJson();
-
         if (book.findBookByISBN(isbn) != null) {
             Gson gson = new Gson();
             return gson.toJson(book.findBookByISBN(isbn));

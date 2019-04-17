@@ -27,8 +27,6 @@ public class Book {
     public Book() {
     }
 
-    ;
-
     public Book(String isbn, String title, String subtitle, String publisher, Long publishedDate, String description, Integer pageCount, String thumbnail, String language, String previewLink, Double averageRating, List<String> authors, List<String> categories) {
         this.isbn = isbn;
         this.title = title;
@@ -60,20 +58,24 @@ public class Book {
             this.publisher = publisher;
     }
 
-    public void setPublishedDate(String publishedDate) {
+    public void setPublishedDate(Long publishedDate) {
         if (publishedDate != null) {
-            try {
-                SimpleDateFormat simpleDateFormat;
-                if (publishedDate.length() == 4) {
-                    simpleDateFormat = new SimpleDateFormat("yyyy");
-                } else {
-                    simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                }
-                Date date = simpleDateFormat.parse(publishedDate);
-                this.publishedDate = date.getTime();
-            } catch (ParseException e) {
-                System.out.println("ParseException occurred. PublishedDate = null");
+            this.publishedDate = publishedDate;
+        }
+    }
+
+    public void convertPublishedDate(String publishedDate) {
+        try {
+            SimpleDateFormat simpleDateFormat;
+            if (publishedDate.length() == 4) {
+                simpleDateFormat = new SimpleDateFormat("yyyy");
+            } else {
+                simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             }
+            Date date = simpleDateFormat.parse(publishedDate);
+            setPublishedDate(date.getTime());
+        } catch (ParseException e) {
+            System.out.println("ParseException occurred. PublishedDate = null");
         }
     }
 
@@ -108,34 +110,48 @@ public class Book {
             this.averageRating = averageRating;
     }
 
-    public void setAuthors(JsonArray authors) {
+    public void setAuthors(List<String> authors) {
         if (authors != null) {
-            this.authors = new ArrayList<>();
-            for (int i = 0; i < authors.size(); i++) {
-                this.authors.add(authors.get(i).getAsString());
-            }
+            this.authors = authors;
         }
     }
 
-    public void setCategories(JsonArray categories) {
+    public void convertAuthors(JsonArray authors) {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < authors.size(); i++) {
+            list.add(authors.get(i).getAsString());
+        }
+        setAuthors(list);
+    }
+
+    public void setCategories(List<String> categories) {
         if (categories != null) {
-            this.categories = new ArrayList<>();
-            for (int i = 0; i < categories.size(); i++) {
-                this.categories.add(categories.get(i).getAsString());
-            }
+            this.categories = categories;
         }
     }
 
-    public void setId(String id, JsonArray industryIdentifiers) {
-        if (industryIdentifiers != null) {
-            for (int i = 0; i < industryIdentifiers.size(); i++) {
-                String checkISBN = industryIdentifiers.get(i).getAsJsonObject().get("type").getAsString();
-                if (checkISBN.equals("ISBN_13")) {
-                    this.isbn = industryIdentifiers.get(i).getAsJsonObject().get("identifier").getAsString();
-                    break;
-                } else {
-                    this.isbn = id;
-                }
+    public void convertCategories(JsonArray categories) {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < categories.size(); i++) {
+            list.add(categories.get(i).getAsString());
+        }
+        setCategories(list);
+    }
+
+    public void setIsbn(String isbn) {
+        if (isbn != null) {
+            this.isbn = isbn;
+        }
+    }
+
+    public void convertIndustryIdentifiers(String id, JsonArray industryIdentifiers) {
+        for (int i = 0; i < industryIdentifiers.size(); i++) {
+            String checkISBN = industryIdentifiers.get(i).getAsJsonObject().get("type").getAsString();
+            if (checkISBN.equals("ISBN_13")) {
+                setIsbn(industryIdentifiers.get(i).getAsJsonObject().get("identifier").getAsString());
+                break;
+            } else {
+                setIsbn(id);
             }
         }
     }
@@ -156,7 +172,7 @@ public class Book {
         return publisher;
     }
 
-    public Long getPublishedDate() {
+    public long getPublishedDate() {
         return publishedDate;
     }
 

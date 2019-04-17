@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Deserializer {
     private List<Book> books;
-    private JsonArray items;
+    private JsonArray jsonItems;
 
     public Deserializer() {
         this.books = new ArrayList<>();
@@ -22,7 +22,7 @@ public class Deserializer {
             Gson gson = new Gson();
             File file = ResourceUtils.getFile("classpath:static/books.json");
             JsonObject jsonObject = gson.fromJson(new FileReader(file), JsonObject.class);
-            items = jsonObject.getAsJsonArray("items");
+            jsonItems = jsonObject.getAsJsonArray("items");
         } catch (FileNotFoundException e) {
             System.out.println("File not found. System is closing..");
             System.exit(1);
@@ -33,13 +33,13 @@ public class Deserializer {
         return books;
     }
 
-    public JsonArray getItems() {
-        return items;
+    public JsonArray getJsonItems() {
+        return jsonItems;
     }
 
     public void readFromJson() {
-        for (int n = 0; n < items.size(); n++) {
-            JsonObject object = items.get(n).getAsJsonObject();
+        for (int n = 0; n < jsonItems.size(); n++) {
+            JsonObject object = jsonItems.get(n).getAsJsonObject();
             books.add(convertJsonToBook(object));
         }
     }
@@ -53,7 +53,7 @@ public class Deserializer {
         if (isVolumeNull(object, "publisher") != null)
             bookToDeserialize.setPublisher(isVolumeNull(object, "publisher").getAsString());
         if (isVolumeNull(object, "publishedDate") != null)
-            bookToDeserialize.setPublishedDate(isVolumeNull(object, "publishedDate").getAsString());
+            bookToDeserialize.convertPublishedDate(isVolumeNull(object, "publishedDate").getAsString());
         if (isVolumeNull(object, "description") != null)
             bookToDeserialize.setDescription(isVolumeNull(object, "description").getAsString());
         if (isVolumeNull(object, "pageCount") != null)
@@ -67,13 +67,12 @@ public class Deserializer {
         if (isVolumeNull(object, "averageRating") != null)
             bookToDeserialize.setAverageRating(isVolumeNull(object, "averageRating").getAsDouble());
         if (isVolumeNull(object, "authors") != null)
-            bookToDeserialize.setAuthors(isVolumeNull(object, "authors").getAsJsonArray());
+            bookToDeserialize.convertAuthors(isVolumeNull(object, "authors").getAsJsonArray());
         if (isVolumeNull(object, "categories") != null)
-            bookToDeserialize.setCategories(isVolumeNull(object, "categories").getAsJsonArray());
+            bookToDeserialize.convertCategories(isVolumeNull(object, "categories").getAsJsonArray());
         if (isVolumeNull(object, "industryIdentifiers") != null)
-            bookToDeserialize.setId(object.get("id").getAsString(), isVolumeNull(object, "industryIdentifiers").getAsJsonArray());
+            bookToDeserialize.convertIndustryIdentifiers(object.get("id").getAsString(), isVolumeNull(object, "industryIdentifiers").getAsJsonArray());
 
-//        BookBuilder bookBuilder = new BookBuilder().withAuthors()
         return bookToDeserialize;
     }
 
