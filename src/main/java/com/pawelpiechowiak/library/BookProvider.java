@@ -1,5 +1,6 @@
 package com.pawelpiechowiak.library;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookProvider {
@@ -17,5 +18,20 @@ public class BookProvider {
             }
         }
         return null;
+    }
+
+    public List<Book> findBookByCategory(String category) {
+        List<Book> bookList = book.getBooks();
+        List<Book> booksToShow = new ArrayList<>();
+        for (Book bookFromList : bookList) {
+            if (bookFromList.getCategories() != null) {
+                for (String bookCategory : bookFromList.getCategories()) {
+                    if (bookCategory.toLowerCase().equals(category.toLowerCase())) {
+                        booksToShow.add(bookFromList);
+                    }
+                }
+            }
+        }
+        return booksToShow;
     }
 }

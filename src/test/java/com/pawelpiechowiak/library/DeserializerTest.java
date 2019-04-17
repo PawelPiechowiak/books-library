@@ -50,7 +50,7 @@ public class DeserializerTest {
                 "in key sockets programming techniques allows reader to quickly come up to speed on Java applications. " +
                 "Concise and up-to-date coverage of the most recent platform (1.7) for Java applications in networking technology.");
         assertEquals(convertedJson.getPageCount(), 192);
-        assertEquals(convertedJson.getThumbnail(), "http://books.google.com/books/content?id=lfHo7uMk7r4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api");
+        assertEquals(convertedJson.getThumbnailUrl(), "http://books.google.com/books/content?id=lfHo7uMk7r4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api");
         assertEquals(convertedJson.getLanguage(), "en");
         assertEquals(convertedJson.getPreviewLink(), "http://books.google.pl/books?id=lfHo7uMk7r4C&printsec=frontcover&dq=java&hl=&cd=38&source=gbs_api");
         assertEquals(convertedJson.getAverageRating(), 4.0, 1);
@@ -96,7 +96,7 @@ public class DeserializerTest {
                 "in key sockets programming techniques allows reader to quickly come up to speed on Java applications. " +
                 "Concise and up-to-date coverage of the most recent platform (1.7) for Java applications in networking technology.");
         assertEquals(convertedJson.getPageCount(), 192);
-        assertEquals(convertedJson.getThumbnail(), "http://books.google.com/books/content?id=lfHo7uMk7r4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api");
+        assertEquals(convertedJson.getThumbnailUrl(), "http://books.google.com/books/content?id=lfHo7uMk7r4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api");
         assertEquals(convertedJson.getLanguage(), "en");
         assertEquals(convertedJson.getPreviewLink(), "http://books.google.pl/books?id=lfHo7uMk7r4C&printsec=frontcover&dq=java&hl=&cd=38&source=gbs_api");
         assertEquals(convertedJson.getAverageRating(), 4.0, 1);

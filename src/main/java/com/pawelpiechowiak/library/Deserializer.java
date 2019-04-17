@@ -59,7 +59,7 @@ public class Deserializer {
         if (isVolumeNull(object, "pageCount") != null)
             bookToDeserialize.setPageCount(isVolumeNull(object, "pageCount").getAsInt());
         if (isVolumeNull(object, "imageLinks") != null)
-            bookToDeserialize.setThumbnail(isVolumeNull(object, "imageLinks").getAsJsonObject().get("thumbnail").getAsString());
+            bookToDeserialize.setThumbnailUrl(isVolumeNull(object, "imageLinks").getAsJsonObject().get("thumbnail").getAsString());
         if (isVolumeNull(object, "language") != null)
             bookToDeserialize.setLanguage(isVolumeNull(object, "language").getAsString());
         if (isVolumeNull(object, "previewLink") != null)

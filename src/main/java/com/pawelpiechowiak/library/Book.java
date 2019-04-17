@@ -16,7 +16,7 @@ public class Book {
     private Long publishedDate;
     private String description;
     private Integer pageCount;
-    private String thumbnail;
+    private String thumbnailUrl;
     private String language;
     private String previewLink;
     private Double averageRating;
@@ -27,7 +27,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String isbn, String title, String subtitle, String publisher, Long publishedDate, String description, Integer pageCount, String thumbnail, String language, String previewLink, Double averageRating, List<String> authors, List<String> categories) {
+    public Book(String isbn, String title, String subtitle, String publisher, Long publishedDate, String description, Integer pageCount, String thumbnailUrl, String language, String previewLink, Double averageRating, List<String> authors, List<String> categories) {
         this.isbn = isbn;
         this.title = title;
         this.subtitle = subtitle;
@@ -35,7 +35,7 @@ public class Book {
         this.publishedDate = publishedDate;
         this.description = description;
         this.pageCount = pageCount;
-        this.thumbnail = thumbnail;
+        this.thumbnailUrl = thumbnailUrl;
         this.language = language;
         this.previewLink = previewLink;
         this.averageRating = averageRating;
@@ -90,9 +90,9 @@ public class Book {
         }
     }
 
-    public void setThumbnail(String thumbnail) {
-        if (thumbnail != null)
-            this.thumbnail = thumbnail;
+    public void setThumbnailUrl(String thumbnailUrl) {
+        if (thumbnailUrl != null)
+            this.thumbnailUrl = thumbnailUrl;
     }
 
     public void setLanguage(String language) {
@@ -184,8 +184,8 @@ public class Book {
         return pageCount;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
     public String getLanguage() {
