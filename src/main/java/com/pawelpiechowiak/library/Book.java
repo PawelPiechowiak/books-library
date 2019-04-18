@@ -58,24 +58,20 @@ public class Book {
             this.publisher = publisher;
     }
 
-    public void setPublishedDate(Long publishedDate) {
+    public void setPublishedDate(String publishedDate) {
         if (publishedDate != null) {
-            this.publishedDate = publishedDate;
-        }
-    }
+            try {
+                SimpleDateFormat simpleDateFormat;
+                if (publishedDate.length() == 4) {
+                    simpleDateFormat = new SimpleDateFormat("yyyy");
+                } else {
+                    simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                }
+                Date date = simpleDateFormat.parse(publishedDate);
+                this.publishedDate = date.getTime();
+            } catch (ParseException e) {
 
-    public void convertPublishedDate(String publishedDate) {
-        try {
-            SimpleDateFormat simpleDateFormat;
-            if (publishedDate.length() == 4) {
-                simpleDateFormat = new SimpleDateFormat("yyyy");
-            } else {
-                simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             }
-            Date date = simpleDateFormat.parse(publishedDate);
-            setPublishedDate(date.getTime());
-        } catch (ParseException e) {
-
         }
     }
 
@@ -110,48 +106,34 @@ public class Book {
             this.averageRating = averageRating;
     }
 
-    public void setAuthors(List<String> authors) {
+    public void setAuthors(JsonArray authors) {
         if (authors != null) {
-            this.authors = authors;
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < authors.size(); i++) {
+                list.add(authors.get(i).getAsString());
+            }
+            this.authors = list;
         }
     }
 
-    public void convertAuthors(JsonArray authors) {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < authors.size(); i++) {
-            list.add(authors.get(i).getAsString());
-        }
-        setAuthors(list);
-    }
-
-    public void setCategories(List<String> categories) {
+    public void setCategories(JsonArray categories) {
         if (categories != null) {
-            this.categories = categories;
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < categories.size(); i++) {
+                list.add(categories.get(i).getAsString());
+            }
+            this.categories = list;
         }
     }
 
-    public void convertCategories(JsonArray categories) {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < categories.size(); i++) {
-            list.add(categories.get(i).getAsString());
-        }
-        setCategories(list);
-    }
-
-    public void setIsbn(String isbn) {
-        if (isbn != null) {
-            this.isbn = isbn;
-        }
-    }
-
-    public void convertIndustryIdentifiers(String id, JsonArray industryIdentifiers) {
+    public void setIsbn(String id, JsonArray industryIdentifiers) {
         for (int i = 0; i < industryIdentifiers.size(); i++) {
             String checkISBN = industryIdentifiers.get(i).getAsJsonObject().get("type").getAsString();
             if (checkISBN.equals("ISBN_13")) {
-                setIsbn(industryIdentifiers.get(i).getAsJsonObject().get("identifier").getAsString());
+                this.isbn = industryIdentifiers.get(i).getAsJsonObject().get("identifier").getAsString();
                 break;
             } else {
-                setIsbn(id);
+                this.isbn = id;
             }
         }
     }
