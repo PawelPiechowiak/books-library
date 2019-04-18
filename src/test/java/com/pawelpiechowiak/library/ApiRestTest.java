@@ -3,11 +3,13 @@ package com.pawelpiechowiak.library;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
+@Ignore
 public class ApiRestTest {
     @BeforeClass
     public static void setup() {
