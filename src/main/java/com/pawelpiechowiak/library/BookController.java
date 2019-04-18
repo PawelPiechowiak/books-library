@@ -43,6 +43,6 @@ public class BookController {
     public String getRating() {
         AuthorProvider author = new AuthorProvider(deserializer);
         Gson gson = new Gson();
-        return gson.toJson(author.segregateAuthors());
+        return gson.toJson(author.sortAuthors());
     }
 }

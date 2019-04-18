@@ -20,8 +20,8 @@ public class AuthorProviderTest {
     }
 
     @Test
-    public void segregateAuthors() {
-        List<Author> authors = author.segregateAuthors();
+    public void sortAuthors() {
+        List<Author> authors = author.sortAuthors();
         Author firstAuthor = authors.get(0);
         Author lastAuthor = authors.get(authors.size() - 1);
 

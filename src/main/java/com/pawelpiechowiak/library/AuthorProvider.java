@@ -59,7 +59,7 @@ public class AuthorProvider {
         return null;
     }
 
-    public List<Author> segregateAuthors() {
+    public List<Author> sortAuthors() {
         List<Author> authors = convertAuthors();
         Collections.sort(authors);
         return authors;
