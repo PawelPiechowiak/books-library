@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 public class BookController {
     private Deserializer deserializer = new Deserializer();
     private BookProvider book = new BookProvider(deserializer);
-    private AuthorProvider author = new AuthorProvider(deserializer);
 
     public BookController() {
         deserializer.readBooksFromJson();
@@ -21,7 +20,7 @@ public class BookController {
         }
     }
 
-    @RequestMapping(value = "/books/{isbn}", method = RequestMethod.GET)
+    @GetMapping(value = "/books/{isbn}")
     @ResponseBody
     public String getBook(@PathVariable("isbn") String isbn) {
         if (book.findBookByISBN(isbn) != null) {
@@ -32,16 +31,17 @@ public class BookController {
         }
     }
 
-    @RequestMapping(value = "/books/category/{category}", method = RequestMethod.GET)
+    @GetMapping(value = "/books/category/{category}")
     @ResponseBody
     public String getCategory(@PathVariable("category") String category) {
         Gson gson = new Gson();
         return gson.toJson(book.findBookByCategory(category));
     }
 
-    @RequestMapping(value = "/rating", method = RequestMethod.GET)
+    @GetMapping(value = "/rating")
     @ResponseBody
     public String getRating() {
+        AuthorProvider author = new AuthorProvider(deserializer);
         Gson gson = new Gson();
         return gson.toJson(author.segregateAuthors());
     }

@@ -75,7 +75,7 @@ public class Book {
             Date date = simpleDateFormat.parse(publishedDate);
             setPublishedDate(date.getTime());
         } catch (ParseException e) {
-            System.out.println("ParseException occurred. PublishedDate = null");
+
         }
     }
 

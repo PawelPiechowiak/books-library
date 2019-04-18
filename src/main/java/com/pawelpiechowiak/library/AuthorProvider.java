@@ -6,43 +6,11 @@ import java.util.List;
 
 public class AuthorProvider {
     private Deserializer deserializer;
-    private List<DuplicatedAuthor> duplicatedAuthors;
+    private List<Author> duplicatedAuthors;
 
     public AuthorProvider(Deserializer deserializer) {
         this.deserializer = deserializer;
         this.duplicatedAuthors = new ArrayList<>();
-    }
-
-    private class DuplicatedAuthor {
-        private String name;
-        private Double rating;
-        private double n;
-
-        public DuplicatedAuthor(String name, Double rating) {
-            this.name = name;
-            this.rating = rating;
-            this.n = 0;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public Double getRating() {
-            return rating;
-        }
-
-        public void setRating(Double rating) {
-            this.rating = rating;
-        }
-
-        public double getN() {
-            return n;
-        }
-
-        public void setN(double n) {
-            this.n = n;
-        }
     }
 
     private void getAuthorsFromBook() {
@@ -54,41 +22,41 @@ public class AuthorProvider {
                     Author author = new Author();
                     author.setName(authorFromBook);
                     author.setAverageRating(book.getAverageRating());
-                    duplicatedAuthors.add(new DuplicatedAuthor(author.getName(), author.getAverageRating()));
+                    author.setBooksValue(1);
+                    duplicatedAuthors.add(author);
                 }
             }
         }
     }
 
-    private DuplicatedAuthor findByName(String name, List<DuplicatedAuthor> authors) {
-        for (DuplicatedAuthor author : authors) {
+    private List<Author> convertAuthors() {
+        getAuthorsFromBook();
+        List<Author> myAuthors = new ArrayList<>();
+
+        for (Author author : duplicatedAuthors) {
+            Author object = findByName(author.getName(), myAuthors);
+            if (object != null) {
+                object.setAverageRating(
+                        (object.getAverageRating() * object.getBooksValue() + author.getAverageRating()) / (object.getBooksValue() + 1)
+                );
+                object.setBooksValue(object.getBooksValue() + 1);
+            } else {
+                myAuthors.add(author);
+            }
+        }
+        for (Author author : myAuthors) {
+            author.setBooksValue(null);
+        }
+        return myAuthors;
+    }
+
+    private Author findByName(String name, List<Author> authors) {
+        for (Author author : authors) {
             if (author.getName().equals(name)) {
                 return author;
             }
         }
         return null;
-    }
-
-    private List<Author> convertAuthors() {
-        getAuthorsFromBook();
-        List<DuplicatedAuthor> myAuthors = new ArrayList<>();
-        List<Author> listToSend = new ArrayList<>();
-
-        for (DuplicatedAuthor author : duplicatedAuthors) {
-            DuplicatedAuthor object = findByName(author.getName(), myAuthors);
-            if (object != null) {
-                object.setRating((object.getRating() * object.getN() + author.getRating()) / (object.getN() + 1.0));
-                object.setN(object.getN() + 1.0);
-            } else {
-                author.setN(1);
-                myAuthors.add(author);
-            }
-        }
-        for (DuplicatedAuthor x : myAuthors) {
-            System.out.println(x.getName());
-            listToSend.add(new Author(x.getName(), x.getRating()));
-        }
-        return listToSend;
     }
 
     public List<Author> segregateAuthors() {

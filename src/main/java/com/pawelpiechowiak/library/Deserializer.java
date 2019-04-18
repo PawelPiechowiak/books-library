@@ -24,7 +24,6 @@ public class Deserializer {
             JsonObject jsonObject = gson.fromJson(new FileReader(file), JsonObject.class);
             jsonItems = jsonObject.getAsJsonArray("items");
         } catch (FileNotFoundException e) {
-            System.out.println("File not found. System is closing..");
             System.exit(1);
         }
     }
@@ -43,24 +42,6 @@ public class Deserializer {
             books.add(convertJsonToBook(object));
         }
     }
-
-//    public void readAuthorsFromJson() {
-//        for (int n = 0; n < jsonItems.size(); n++) {
-//            JsonObject object = jsonItems.get(n).getAsJsonObject();
-//            authors.add(convertJsonToAuthor(object));
-//        }
-//    }
-//
-//    public Author convertJsonToAuthor(JsonObject object) {
-//        Author author = new Author();
-//        if (isVolumeNull(object, "authors") != null) {
-//
-//            bookToDeserialize.convertAuthors(isVolumeNull(object, "authors").getAsJsonArray());
-//        }
-//        if (isVolumeNull(object, "averageRating") != null)
-//            bookToDeserialize.setAverageRating(isVolumeNull(object, "averageRating").getAsDouble());
-//        return author;
-//    }
 
     public Book convertJsonToBook(JsonObject object) {
         Book bookToDeserialize = new Book();

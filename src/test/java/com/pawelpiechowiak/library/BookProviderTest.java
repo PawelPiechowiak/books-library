@@ -23,8 +23,8 @@ public class BookProviderTest {
     public void findBookByISBN() {
         Book testBook = bookProvider.findBookByISBN("9781575211534");
 
-        assertEquals(testBook.getIsbn(), "9781575211534");
-        assertEquals(testBook.getPublishedDate(), 820450800000L);
+        assertEquals("9781575211534", testBook.getIsbn());
+        assertEquals(820450800000L, testBook.getPublishedDate());
         assertNull(testBook.getSubtitle());
     }
 
@@ -32,15 +32,15 @@ public class BookProviderTest {
     public void findBookByCategoryWithCapitalLetter() {
         List<Book> bookList = bookProvider.findBookByCategory("Java");
 
-        assertEquals(bookList.get(0).getIsbn(), "9788324677658");
-        assertEquals(bookList.get(1).getIsbn(), "9780131002876");
+        assertEquals("9788324677658", bookList.get(0).getIsbn());
+        assertEquals("9780131002876", bookList.get(1).getIsbn());
     }
 
     @Test
     public void findBookByCategoryWithLowerLetter() {
         List<Book> bookList = bookProvider.findBookByCategory("java");
 
-        assertEquals(bookList.get(0).getIsbn(), "9788324677658");
-        assertEquals(bookList.get(1).getIsbn(), "9780131002876");
+        assertEquals("9788324677658", bookList.get(0).getIsbn());
+        assertEquals("9780131002876", bookList.get(1).getIsbn());
     }
 }

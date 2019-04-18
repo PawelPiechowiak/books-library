@@ -3,13 +3,23 @@ package com.pawelpiechowiak.library;
 public class Author implements Comparable<Author> {
     private String name;
     private double averageRating;
+    private Integer booksValue;
 
     public Author() {
     }
 
-    public Author(String name, double averageRating) {
+    public Author(String name, double averageRating, int booksValue) {
         this.name = name;
         this.averageRating = averageRating;
+        this.booksValue = booksValue;
+    }
+
+    public int getBooksValue() {
+        return booksValue;
+    }
+
+    public void setBooksValue(Integer booksValue) {
+        this.booksValue = booksValue;
     }
 
     public String getName() {
