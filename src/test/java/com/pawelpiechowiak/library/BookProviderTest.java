@@ -9,23 +9,29 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class BookProviderTest {
-    private Deserializer deserializer;
+    private BookDeserializer bookDeserializer;
     private BookProvider bookProvider;
 
     @Before
     public void setUp() {
-        deserializer = new Deserializer();
-        deserializer.readBooksFromJson();
-        bookProvider = new BookProvider(deserializer);
+        bookDeserializer = new BookDeserializer();
+        bookDeserializer.readBooksFromJson();
+        bookProvider = new BookProvider(bookDeserializer);
     }
 
     @Test
-    public void findBookByISBN() {
+    public void findBookByISBNWithExistingISBN() {
         Book testBook = bookProvider.findBookByISBN("9781575211534");
 
         assertEquals("9781575211534", testBook.getIsbn());
         assertEquals(820450800000L, testBook.getPublishedDate());
         assertNull(testBook.getSubtitle());
+    }
+
+    @Test
+    public void findBookByISBNWithoutExistingISBN() {
+        Book testBook = bookProvider.findBookByISBN("N1IiAQAAIAAJ");
+        assertEquals("N1IiAQAAIAAJ", testBook.getIsbn());
     }
 
     @Test

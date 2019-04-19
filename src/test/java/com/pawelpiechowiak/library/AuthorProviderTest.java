@@ -9,19 +9,19 @@ import static org.junit.Assert.assertEquals;
 
 public class AuthorProviderTest {
 
-    private Deserializer deserializer;
-    private AuthorProvider author;
+    private BookDeserializer bookDeserializer;
+    private AuthorProvider authorProvider;
 
     @Before
     public void setUp() {
-        deserializer = new Deserializer();
-        deserializer.readBooksFromJson();
-        author = new AuthorProvider(deserializer);
+        bookDeserializer = new BookDeserializer();
+        bookDeserializer.readBooksFromJson();
+        authorProvider = new AuthorProvider(bookDeserializer);
     }
 
     @Test
     public void sortAuthors() {
-        List<Author> authors = author.sortAuthors();
+        List<Author> authors = authorProvider.getSortedAuthors();
         Author firstAuthor = authors.get(0);
         Author lastAuthor = authors.get(authors.size() - 1);
 

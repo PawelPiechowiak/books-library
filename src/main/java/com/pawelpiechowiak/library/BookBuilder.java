@@ -1,33 +1,28 @@
 package com.pawelpiechowiak.library;
 
-import com.google.gson.JsonArray;
+import java.util.List;
 
 public final class BookBuilder {
-    private String id;
+    private String isbn;
     private String title;
     private String subtitle;
     private String publisher;
-    private String publishedDate;
+    private Long publishedDate;
     private String description;
     private Integer pageCount;
     private String thumbnail;
     private String language;
     private String previewLink;
     private Double averageRating;
-    private JsonArray authors;
-    private JsonArray categories;
-    private JsonArray industryIdentifiers;
-
-    public BookBuilder() {
-    }
+    private List<String> authors;
+    private List<String> categories;
 
     public static BookBuilder aBook() {
         return new BookBuilder();
     }
 
-    public BookBuilder withIsbn(String id, JsonArray industryIdentifiers) {
-        this.id = id;
-        this.industryIdentifiers = industryIdentifiers;
+    public BookBuilder withIsbn(String isbn) {
+        this.isbn = isbn;
         return this;
     }
 
@@ -46,7 +41,7 @@ public final class BookBuilder {
         return this;
     }
 
-    public BookBuilder withPublishedDate(String publishedDate) {
+    public BookBuilder withPublishedDate(Long publishedDate) {
         this.publishedDate = publishedDate;
         return this;
     }
@@ -81,19 +76,19 @@ public final class BookBuilder {
         return this;
     }
 
-    public BookBuilder withAuthors(JsonArray authors) {
+    public BookBuilder withAuthors(List<String> authors) {
         this.authors = authors;
         return this;
     }
 
-    public BookBuilder withCategories(JsonArray categories) {
+    public BookBuilder withCategories(List<String> categories) {
         this.categories = categories;
         return this;
     }
 
     public Book build() {
         Book book = new Book();
-        book.setIsbn(id, industryIdentifiers);
+        book.setIsbn(isbn);
         book.setTitle(title);
         book.setSubtitle(subtitle);
         book.setPublisher(publisher);
