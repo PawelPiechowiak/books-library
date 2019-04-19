@@ -1,11 +1,5 @@
 package com.pawelpiechowiak.library;
 
-import com.google.gson.JsonArray;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Book {
@@ -24,118 +18,56 @@ public class Book {
     private List<String> authors;
     private List<String> categories;
 
-    public Book() {
-    }
-
-    public Book(String isbn, String title, String subtitle, String publisher, Long publishedDate, String description, Integer pageCount, String thumbnailUrl, String language, String previewLink, Double averageRating, List<String> authors, List<String> categories) {
-        this.isbn = isbn;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.publisher = publisher;
-        this.publishedDate = publishedDate;
-        this.description = description;
-        this.pageCount = pageCount;
-        this.thumbnailUrl = thumbnailUrl;
-        this.language = language;
-        this.previewLink = previewLink;
-        this.averageRating = averageRating;
-        this.authors = authors;
-        this.categories = categories;
-    }
-
     public void setTitle(String title) {
-        if (title != null)
             this.title = title;
     }
 
     public void setSubtitle(String subtitle) {
-        if (subtitle != null)
             this.subtitle = subtitle;
     }
 
     public void setPublisher(String publisher) {
-        if (publisher != null)
             this.publisher = publisher;
     }
 
-    public void setPublishedDate(String publishedDate) {
-        if (publishedDate != null) {
-            try {
-                SimpleDateFormat simpleDateFormat;
-                if (publishedDate.length() == 4) {
-                    simpleDateFormat = new SimpleDateFormat("yyyy");
-                } else {
-                    simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                }
-                Date date = simpleDateFormat.parse(publishedDate);
-                this.publishedDate = date.getTime();
-            } catch (ParseException e) {
-
-            }
-        }
+    public void setPublishedDate(Long publishedDate) {
+        this.publishedDate = publishedDate;
     }
 
     public void setDescription(String description) {
-        if (description != null)
             this.description = description;
     }
 
     public void setPageCount(Integer pageCount) {
-        if (pageCount != null) {
             this.pageCount = pageCount;
-        }
     }
 
     public void setThumbnailUrl(String thumbnailUrl) {
-        if (thumbnailUrl != null)
             this.thumbnailUrl = thumbnailUrl;
     }
 
     public void setLanguage(String language) {
-        if (language != null)
             this.language = language;
     }
 
     public void setPreviewLink(String previewLink) {
-        if (previewLink != null)
             this.previewLink = previewLink;
     }
 
     public void setAverageRating(Double averageRating) {
-        if (averageRating != null)
             this.averageRating = averageRating;
     }
 
-    public void setAuthors(JsonArray authors) {
-        if (authors != null) {
-            List<String> list = new ArrayList<>();
-            for (int i = 0; i < authors.size(); i++) {
-                list.add(authors.get(i).getAsString());
-            }
-            this.authors = list;
-        }
+    public void setAuthors(List<String> authors) {
+        this.authors = authors;
     }
 
-    public void setCategories(JsonArray categories) {
-        if (categories != null) {
-            List<String> list = new ArrayList<>();
-            for (int i = 0; i < categories.size(); i++) {
-                list.add(categories.get(i).getAsString());
-            }
-            this.categories = list;
-        }
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
     }
 
-    public void setIsbn(String id, JsonArray industryIdentifiers) {
-        for (int i = 0; i < industryIdentifiers.size(); i++) {
-            String checkISBN = industryIdentifiers.get(i).getAsJsonObject().get("type").getAsString();
-            if (checkISBN.equals("ISBN_13")) {
-                this.isbn = industryIdentifiers.get(i).getAsJsonObject().get("identifier").getAsString();
-                break;
-            } else {
-                this.isbn = id;
-            }
-        }
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getIsbn() {

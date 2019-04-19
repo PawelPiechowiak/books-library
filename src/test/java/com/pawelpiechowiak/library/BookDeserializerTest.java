@@ -8,18 +8,18 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class DeserializerTest {
-    private Deserializer deserializer;
+public class BookDeserializerTest {
+    private BookDeserializer bookDeserializer;
 
     @Before
     public void setUp() {
-        deserializer = new Deserializer();
+        bookDeserializer = new BookDeserializer();
     }
 
     @Test
     public void readFromJson() {
-        deserializer.readBooksFromJson();
-        Book convertedJson = deserializer.getBooks().get(37);
+        bookDeserializer.readBooksFromJson();
+        Book convertedJson = bookDeserializer.getBooks().get(37);
 
         assertEquals("9780080568782", convertedJson.getIsbn());
         assertEquals("TCP/IP Sockets in Java", convertedJson.getTitle());
@@ -66,7 +66,7 @@ public class DeserializerTest {
 
     @Test
     public void convertJsonToBookWithAllFields() {
-        Book convertedJson = deserializer.convertJsonToBook(deserializer.getJsonItems().get(37).getAsJsonObject());
+        Book convertedJson = bookDeserializer.convertJsonToBook(bookDeserializer.getJsonItems().get(37).getAsJsonObject());
 
         assertEquals("9780080568782", convertedJson.getIsbn());
         assertEquals("TCP/IP Sockets in Java", convertedJson.getTitle());
@@ -113,14 +113,14 @@ public class DeserializerTest {
 
     @Test
     public void convertJsonToBookWithFieldsOfNull() {
-        Book convertedJson = deserializer.convertJsonToBook(deserializer.getJsonItems().get(32).getAsJsonObject());
+        Book convertedJson = bookDeserializer.convertJsonToBook(bookDeserializer.getJsonItems().get(32).getAsJsonObject());
         assertNull(convertedJson.getSubtitle());
         assertNull(convertedJson.getDescription());
     }
 
     @Test
     public void convertJsonToBookWithoutIsbn() {
-        Book convertedJson = deserializer.convertJsonToBook(deserializer.getJsonItems().get(11).getAsJsonObject());
+        Book convertedJson = bookDeserializer.convertJsonToBook(bookDeserializer.getJsonItems().get(11).getAsJsonObject());
         assertEquals("N1IiAQAAIAAJ", convertedJson.getIsbn());
     }
 }

@@ -5,16 +5,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class AuthorProvider {
-    private Deserializer deserializer;
+    private BookDeserializer bookDeserializer;
     private List<Author> duplicatedAuthors;
 
-    public AuthorProvider(Deserializer deserializer) {
-        this.deserializer = deserializer;
+    public AuthorProvider(BookDeserializer bookDeserializer) {
+        this.bookDeserializer = bookDeserializer;
         this.duplicatedAuthors = new ArrayList<>();
     }
 
     private void getAuthorsFromBook() {
-        List<Book> books = deserializer.getBooks();
+        List<Book> books = bookDeserializer.getBooks();
         for (Book book : books) {
             if (book.getAuthors() != null && book.getAverageRating() != null) {
                 List<String> authorsFromBook = book.getAuthors();
@@ -59,7 +59,7 @@ public class AuthorProvider {
         return null;
     }
 
-    public List<Author> sortAuthors() {
+    public List<Author> getSortedAuthors() {
         List<Author> authors = convertAuthors();
         Collections.sort(authors);
         return authors;
