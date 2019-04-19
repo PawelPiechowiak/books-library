@@ -39,17 +39,17 @@ public class ApiRestTest {
 
     @Test
     public void checkStatusBookByCategory_capitalLetter() {
-        given().when().get("/books/category/Computers").then().statusCode(200);
+        given().when().get("/books/categories/Computers").then().statusCode(200);
     }
 
     @Test
     public void checkStatusBookByCategory_mixedLetter() {
-        given().when().get("/books/category/coMpuTeRs").then().statusCode(200);
+        given().when().get("/books/categories/coMpuTeRs").then().statusCode(200);
     }
 
     @Test
     public void checkStatusAuthorsRating() {
-        given().when().get("rating").then().statusCode(200);
+        given().when().get("authors").then().statusCode(200);
     }
 
     @Test
