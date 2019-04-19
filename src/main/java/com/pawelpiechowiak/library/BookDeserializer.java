@@ -103,7 +103,7 @@ public class BookDeserializer {
                 Date date = simpleDateFormat.parse(publishedDate);
                 return date.getTime();
             } catch (ParseException e) {
-
+                return null;
             }
         }
         return null;

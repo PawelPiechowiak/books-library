@@ -31,14 +31,14 @@ public class BookController {
         }
     }
 
-    @GetMapping(value = "/books/category/{category}")
+    @GetMapping(value = "/books/categories/{category}")
     @ResponseBody
     public String getCategory(@PathVariable("category") String category) {
         Gson gson = new Gson();
         return gson.toJson(book.findBookByCategory(category));
     }
 
-    @GetMapping(value = "/rating")
+    @GetMapping(value = "/authors")
     @ResponseBody
     public String getRating() {
         AuthorProvider author = new AuthorProvider(bookDeserializer);
