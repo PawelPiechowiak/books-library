@@ -17,6 +17,6 @@ To build the project use following command: `gradle clean build`</br>
 After building the application run following comannd to start it: `gradle bootRun`
 
 6. Api Documentation </br></br>
-Url for finding book by ISBN: http://localhost:8080/books/{isbn} - in this case program returns api according to to the table contained in "Examples and additional notes.pdf"</br></br>
-Url for finding books by category: http://localhost:8080/books/categories/{category} - in this case program returns api according to to the table contained in "Examples and additional notes.pdf"</br></br>
-Url for list authors with their rating: http://localhost:8080/authors - in this case program returns list with object which has 2 fields: String name oraz Double averageRating.
+Url for finding book by ISBN: http://localhost:8080/books/{isbn} - in this case program returns api with data about the book with indicated isbn</br></br>
+Url for finding books by category: http://localhost:8080/books/categories/{category} - in this case program returns api with all of books in indicated category</br></br>
+Url for list authors with their rating: http://localhost:8080/authors - in this case program returns list of authors in descending order with object which has 2 fields: String name and Double averageRating.
